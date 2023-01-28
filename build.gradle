@@ -10,7 +10,6 @@ plugins {
   // See the compatibility table below:
   // https://developer.android.com/studio/releases
   id "com.android.application" version "7.3.0" apply false
-  // id "com.android.library" version "7.3.0" apply false
 }
 
 ext {
