@@ -1,0 +1,30 @@
+buildscript {
+  repositories {
+    maven {
+      url "https://maven.google.com"
+    }
+  }
+}
+
+plugins {
+  // See the compatibility table below:
+  // https://developer.android.com/studio/releases
+  id "com.android.application" version "7.3.0" apply false
+  // id "com.android.library" version "7.3.0" apply false
+}
+
+ext {
+  id = "app.yasha.nowt"
+
+  minSdkVersion = 16
+  sdkVersion = 33
+  toolsVersion = "33.0.1"
+
+  // application
+  versionCode = 1
+  versionName = "1.0.0"
+}
+
+task clean(type: Delete) {
+  delete rootProject.buildDir
+}

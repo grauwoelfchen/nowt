@@ -1,0 +1,2 @@
+-keepattributes SourceFile,LinuNumberTable
+-renamesourcefileattribute SourceFile

@@ -1,0 +1,5 @@
+# See Android Emulator, Build Tools, Platform Tools and Command-line tools:
+# https://developer.android.com/studio/command-line/
+export EMULATOR_PATH=$ANDROID_HOME/sdk/emulator/emulator
+
+export PATH=$PWD/bin:$PATH

@@ -1,0 +1,21 @@
+#!/bin/env bash
+
+if [[ -f "${PWD}/.env" ]]; then
+  source .env
+fi
+
+# e.g. $ANDROID_HOME/sdk/emulator/emulator
+emulator_cmd="${EMULATOR_PATH:-emulator}"
+emulator_args="${@:-"-list-avds"}"
+
+type "${emulator_cmd}" >/dev/null
+if [[ $? -ne 0 ]]; then
+  exit 1
+fi
+
+if [[ -z "${emulator_args}" ]]; then
+  echo "Check ${0} --help" >&2
+  exit 1
+else
+  exec $emulator_cmd $emulator_args
+fi

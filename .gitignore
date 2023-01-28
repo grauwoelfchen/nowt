@@ -1,0 +1,19 @@
+.autoenv
+.env
+
+.idea
+.classpath
+.project
+.metadata
+
+/gradle
+/gradlew*
+
+local.properties
+
+# cache
+.gradle
+
+# artifacts
+*.apk
+build

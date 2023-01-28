@@ -1,0 +1,82 @@
+plugins {
+  id "com.android.application"
+}
+
+android {
+  namespace rootProject.ext.id
+
+  // https://developer.android.com/studio/releases/build-tools
+  buildToolsVersion rootProject.ext.toolsVersion
+  compileSdkVersion rootProject.ext.sdkVersion
+
+  defaultConfig {
+    applicationId rootProject.ext.id
+    versionCode rootProject.ext.versionCode
+    versionName rootProject.ext.versionName
+
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.sdkVersion
+
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunnerArguments clearPackageData: "true"
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_11
+    targetCompatibility JavaVersion.VERSION_11
+  }
+
+  lintOptions {
+    checkReleaseBuilds true
+    abortOnError false
+  }
+
+  testOptions {
+    unitTests {
+      includeAndroidResources = true
+    }
+  }
+
+  buildTypes {
+    debug {
+      debuggable true
+      minifyEnabled false
+    }
+
+    release {
+      minifyEnabled true
+      shrinkResources true
+
+      proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"),
+        "proguard-rules.pro"
+    }
+  }
+}
+
+configurations {
+  freeDebugRuntimeOnly{}
+}
+
+dependencies {
+  // support
+  implementation "androidx.appcompat:appcompat:1.6.0"
+  implementation "androidx.constraintlayout:constraintlayout:2.0.4"
+
+  // src/test
+  testImplementation "junit:junit:4.13.2"
+
+  // src/androidTest
+  // https://developer.android.com/jetpack/androidx/releases/test
+  androidTestImplementation "androidx.test:core:1.5.0"
+  androidTestImplementation "androidx.test:runner:1.5.0"
+  androidTestImplementation "androidx.test:rules:1.5.0"
+  androidTestImplementation "androidx.test.ext:junit:1.1.5"
+  androidTestImplementation "androidx.test.ext:truth:1.5.0"
+  androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
+}
+
+tasks.withType(Test) {
+  testLogging {
+    events "standardOut", "started", "passed", "skipped", "failed"
+  }
+}
