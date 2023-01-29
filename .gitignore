@@ -5,6 +5,7 @@
 .classpath
 .project
 .metadata
+/jdt.ls-java-project
 
 /gradle
 /gradlew*

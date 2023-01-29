@@ -11,6 +11,11 @@ You can do nowt (nought).
 * OpenJDK 17
 * Gradle 7.6
 
+### Required permissions
+
+* INTERNET
+* ACCESS_NETWORK_STATE
+
 
 ## Build
 
@@ -100,3 +105,51 @@ config.ini:
 hw.gpu.enabled = no
 hw.gpu.mode = off
 ```
+
+#### Setup udev rules for USB debugging
+
+e.g. for my Cat S52 ;)
+
+Add an user in `plugdev` group.
+
+```zsh
+% sudo usermod -aG plugdev <user>
+```
+
+Create an udev rule.
+
+```zsh
+# Check IDs
+% lsusb | grep S52
+Bus 007 Device 011: ID 04b7:88e0 Compal Electronics, Inc. S52
+```
+
+```zsh
+% cat /etc/udev/rules.d/51-android.rules
+# Cat S52
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="04b7", ATTRS{idProduct}=="88e0", \
+  MODE="0600", GROUP="plugdev", SYMLINK+="android%n"
+% sudo udevadm control --reload-rules
+```
+
+After the device is connected, I can see it.
+
+```zsh
+% ls -la /dev/android3
+lrwxrwxrwx 1 root root 15 Jan 30 02:18 /dev/android3 -> bus/usb/007/011
+```
+
+In order to make it available on USB debugging via adb, go `Settings` ->
+`Developer options` -> `Default USB configuration`, then set it as
+`File transfer` mode.
+
+Then,
+
+```zsh
+% adb start-server
+...
+% adb devices -l
+List of devices attached
+S522003011998          device usb:7-6.3 product:CatS52 model:S52 device:CatS52 transport_id:1
+```
+
