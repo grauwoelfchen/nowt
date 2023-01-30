@@ -1,8 +1,8 @@
 package app.yasha.nowt;
 
 import android.os.Bundle;
-import android.util.Log;
 import androidx.lifecycle.Observer;
+import timber.log.Timber;
 
 public class MainActivity extends BaseActivity {
   private static final String TAG = "MainActivity";
@@ -20,9 +20,9 @@ public class MainActivity extends BaseActivity {
       @Override
       public void onChanged(Boolean isConnected) {
         if (isConnected) {
-          Log.d(TAG, "(onChanged) Connected");
+          Timber.d(TAG, "(onChanged) Connected");
         } else {
-          Log.d(TAG, "(onChanged) Not connected");
+          Timber.d(TAG, "(onChanged) Not connected");
         }
       }
     });
@@ -32,13 +32,13 @@ public class MainActivity extends BaseActivity {
   protected void onPause() {
     connectivityMonitor.unregisterNetworkCallback();
     super.onPause();
-    Log.d(TAG, "(onPause)");
+    Timber.d(TAG, "(onPause)");
   }
 
   @Override
   protected void onResume() {
     super.onResume();
-    Log.d(TAG, "(onResume)");
+    Timber.d(TAG, "(onResume)");
 
     connectivityMonitor.registerNetworkCallback();
   }

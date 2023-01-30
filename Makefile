@@ -2,12 +2,28 @@ setup:
 	@gradle wrapper
 .PHONY: setup
 
-build:
-	@./gradlew build
+check:
+	@./gradlew --console=verbose check --exclude-task test
+.PHONY: check
+
+test:
+	@./gradlew --console=verbose test --exclude-task testReleaseUnitTest
+.PHONY: test
+
+# https://developer.android.com/studio/build/building-cmdline
+build\:debug:
+	@./gradlew --console=verbose assembleDebug --exclude-task check --exclude-task test
+.PHONY: build\:debug
+
+build\:release:
+	@./gradlew --console=verbose assembleRelease
+.PHONY: build\:release
+
+build: build\:debug
 .PHONY: build
 
 clean:
-	@./gradlew clean
+	@./gradlew cleanTest clean
 .PHONY: clean
 
 adb\:serve:

@@ -4,10 +4,10 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
-import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
+import timber.log.Timber;
 
 // NetworkConnectivityMonitor
 public class NetworkConnectivityMonitor
@@ -28,7 +28,7 @@ public class NetworkConnectivityMonitor
     @Override
     public void onUnavailable() {
       super.onUnavailable();
-      Log.d(TAG, "(onUnavailable)");
+      Timber.d(TAG, "(onUnavailable)");
       postValue(false);
     }
 
@@ -36,7 +36,7 @@ public class NetworkConnectivityMonitor
     public void onCapabilitiesChanged(
       @NonNull Network network, NetworkCapabilities networkCapabalities) {
       super.onCapabilitiesChanged(network, networkCapabalities);
-      Log.d(TAG, "(onCapabilitiesChanged) " + String.format(
+      Timber.d(TAG, "(onCapabilitiesChanged) " + String.format(
         "network: %s, networkCapabilities: %s", network, networkCapabalities));
       boolean status = hasAnyTransport(networkCapabalities);
       postValue(status);
@@ -50,7 +50,7 @@ public class NetworkConnectivityMonitor
   }
 
   protected void registerNetworkCallback() {
-    Log.d(TAG, "(registerNetworkCallback)");
+    Timber.d(TAG, "(registerNetworkCallback)");
     try {
       boolean status = checkCapabilities();
       postValue(status);
@@ -63,14 +63,14 @@ public class NetworkConnectivityMonitor
       // may cause an exception like:
       // Neither user 10407 nor current process has
       // android.permission.ACCESS_NETWORK_STATE.
-      Log.d(TAG, "(registerNetworkCallback) " +
+      Timber.d(TAG, "(registerNetworkCallback) " +
         String.format("e: %s", e.getMessage()));
       postValue(false);
     }
   }
 
   protected void unregisterNetworkCallback() {
-    Log.d(TAG, "(unregisterNetworkCallback)");
+    Timber.d(TAG, "(unregisterNetworkCallback)");
     connectivityManager.unregisterNetworkCallback(callback);
   }
 
