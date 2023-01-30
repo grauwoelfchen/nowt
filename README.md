@@ -2,7 +2,9 @@
 
 `/naʊt/`
 
-You can do nowt (nought).
+An immersive RSS reader for Android.
+
+You can do **nowt** (nought) except reading an item/entry at a time.
 
 
 ## Requirements
