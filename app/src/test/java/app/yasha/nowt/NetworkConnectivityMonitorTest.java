@@ -24,22 +24,21 @@ import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class NetworkConnectivityMonitorTest {
-	// This rule is needed to wait for a value by LiveData
+  // This rule is needed to wait for a value by LiveData
   // https://developer.android.com/topic/libraries/architecture/livedata
   @Rule
-	public InstantTaskExecutorRule instantTaskExecutorRule =
-			new InstantTaskExecutorRule();
+  public InstantTaskExecutorRule instantTaskExecutorRule =
+    new InstantTaskExecutorRule();
 
   @Test
   public void networkConnectivityMonitor_DetectsNotConnected() {
     Context context = (Context)ApplicationProvider.getApplicationContext();
     ConnectivityManager manager = (ConnectivityManager)context
-			.getSystemService(Context.CONNECTIVITY_SERVICE);
+      .getSystemService(Context.CONNECTIVITY_SERVICE);
 
     // connecting to a network without any transport
     NetworkCapabilities cap = ShadowNetworkCapabilities.newInstance();
-    shadowOf(manager).setNetworkCapabilities(
-        manager.getActiveNetwork(), cap);
+    shadowOf(manager).setNetworkCapabilities(manager.getActiveNetwork(), cap);
 
     ActivityController controller = Robolectric
       .buildActivity(AppCompatActivity.class)
@@ -53,9 +52,9 @@ public class NetworkConnectivityMonitorTest {
     connectivityMonitor.observe(activity, new Observer<Boolean>() {
       @Override
       public void onChanged(Boolean isConnected) {
-				System.err.printf("isConnected: %s\n", isConnected);
+        System.err.printf("isConnected: %s\n", isConnected);
         // TODO: is there any good way to ensure that onChange is called?
-				assertFalse(isConnected);
+        assertFalse(isConnected);
       }
     });
 
@@ -66,13 +65,12 @@ public class NetworkConnectivityMonitorTest {
   public void networkConnectivityMonitor_DetectsConnected() {
     Context context = (Context)ApplicationProvider.getApplicationContext();
     ConnectivityManager manager = (ConnectivityManager)context
-			.getSystemService(Context.CONNECTIVITY_SERVICE);
+      .getSystemService(Context.CONNECTIVITY_SERVICE);
 
     // connecting to a network via WIFI
     NetworkCapabilities cap = ShadowNetworkCapabilities.newInstance();
     shadowOf(cap).addTransportType(NetworkCapabilities.TRANSPORT_WIFI);
-    shadowOf(manager).setNetworkCapabilities(
-        manager.getActiveNetwork(), cap);
+    shadowOf(manager).setNetworkCapabilities(manager.getActiveNetwork(), cap);
 
     ActivityController controller = Robolectric
       .buildActivity(AppCompatActivity.class)
@@ -85,9 +83,9 @@ public class NetworkConnectivityMonitorTest {
     connectivityMonitor.observe(activity, new Observer<Boolean>() {
       @Override
       public void onChanged(Boolean isConnected) {
-				System.err.printf("isConnected: %s\n", isConnected);
+        System.err.printf("isConnected: %s\n", isConnected);
         // TODO: is there any good way to ensure that onChange is called?
-				assertTrue(isConnected);
+        assertTrue(isConnected);
       }
     });
 
