@@ -20,7 +20,7 @@ public class NetworkConnectivityMonitor
 
   // https://developer.android.com/reference/android/net/ConnectivityManager.NetworkCallback
   public class NetworkConnectivityCallback
-      extends ConnectivityManager.NetworkCallback {
+    extends ConnectivityManager.NetworkCallback {
     private static final String TAG = "NetworkConnectivityCallback";
 
     // This is called if no network is found or the network request cannot be
