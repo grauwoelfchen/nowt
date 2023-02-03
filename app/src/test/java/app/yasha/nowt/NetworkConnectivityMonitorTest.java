@@ -12,6 +12,7 @@ import java.lang.System;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.android.controller.ActivityController;
@@ -29,6 +30,37 @@ public class NetworkConnectivityMonitorTest {
   @Rule
   public InstantTaskExecutorRule instantTaskExecutorRule =
     new InstantTaskExecutorRule();
+
+  @Test
+  public void networkConnectivityMonitor_DoesNotDetectAnyNetwork() {
+    // Network is null
+    ConnectivityManager managerMock = Mockito.mock(ConnectivityManager.class);
+    Mockito.when(managerMock.getActiveNetwork()).thenReturn(null);
+
+    Context contextMock = Mockito.mock(Context.class);
+    Mockito.when(contextMock.getSystemService(Context.CONNECTIVITY_SERVICE))
+      .thenReturn(managerMock);
+
+    ActivityController controller = Robolectric
+      .buildActivity(AppCompatActivity.class)
+      .create()
+      .start();
+    AppCompatActivity activity = (AppCompatActivity)controller.get();
+
+    NetworkConnectivityMonitor connectivityMonitor =
+      new NetworkConnectivityMonitor(contextMock);
+
+    connectivityMonitor.observe(activity, new Observer<Boolean>() {
+      @Override
+      public void onChanged(Boolean isConnected) {
+        System.err.printf("isConnected: %s\n", isConnected);
+        // TODO: is there any good way to ensure that onChange is called?
+        assertFalse(isConnected);
+      }
+    });
+
+    connectivityMonitor.registerNetworkCallback();
+  }
 
   @Test
   public void networkConnectivityMonitor_DetectsNotConnected() {

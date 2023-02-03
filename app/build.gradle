@@ -72,8 +72,9 @@ dependencies {
   implementation "com.jakewharton.timber:timber:5.0.1"
 
   // src/test
-  testImplementation "junit:junit:4.13.2"
   testImplementation "androidx.test:core:1.5.0"
+  testImplementation "junit:junit:4.13.2"
+  testImplementation "org.mockito:mockito-core:5.1.1"
   testImplementation "org.robolectric:robolectric:4.9.2"
 
   // src/androidTest
