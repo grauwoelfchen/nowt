@@ -1,6 +1,8 @@
 plugins {
-  id "com.android.application"
-  id "com.adarshr.test-logger"
+  // See the compatibility table below:
+  // https://developer.android.com/studio/releases
+  id "com.android.application" version "7.3.0" apply true
+  id "com.adarshr.test-logger" version "3.2.0" apply true
 }
 
 android {
@@ -33,8 +35,10 @@ android {
   }
 
   testOptions {
+    animationsDisabled true
+
     unitTests {
-      includeAndroidResources = true
+      includeAndroidResources true
     }
   }
 
@@ -42,6 +46,7 @@ android {
     debug {
       debuggable true
       minifyEnabled false
+      testCoverageEnabled true
     }
 
     release {

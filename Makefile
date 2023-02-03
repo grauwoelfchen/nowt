@@ -10,6 +10,11 @@ test:
 	@./gradlew --console=verbose test --exclude-task testReleaseUnitTest
 .PHONY: test
 
+# xdg-open ./app/build/reports/coverage/test/debug/index.html
+coverage:
+	@./gradlew createDebugUnitTestCoverageReport
+.PHONY: coverage
+
 # https://developer.android.com/studio/build/building-cmdline
 build\:debug:
 	@./gradlew --console=verbose assembleDebug --exclude-task check --exclude-task test
