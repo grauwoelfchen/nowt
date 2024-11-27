@@ -1,3 +1,10 @@
+> [!NOTE]
+>
+> This repository has been moved. Please check the new locations below.
+>
+> * [~grauwoelfchen/nowt](https://git.sr.ht/~grauwoelfchen/nowt) on Sourcehut
+> * [grauwoelfchen/nowt](https://codeberg.org/grauwoelfchen/nowt) on Codeberg
+
 # Nowt
 
 `/naʊt/`
